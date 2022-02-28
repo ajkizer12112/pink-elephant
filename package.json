@@ -29,6 +29,7 @@
     "pluralize": "^8.0.0",
     "react-router-dom": "^6.2.1",
     "supertest": "^6.2.2",
+    "transliteration": "^2.2.0",
     "xlsx": "^0.18.0",
     "xss-clean": "^0.1.1"
   },
