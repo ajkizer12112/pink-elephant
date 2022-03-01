@@ -12,11 +12,15 @@ exports.getPhrases = asyncHandler(async (req, res, next) => {
      if (req.query.select) {
           let languages = req.query.select.split(",");
           languages.forEach(language => languages.push(`${language}_romanized`))
-          select = languages.join(" ")
+          select = languages.join(" ") + " category"
      } else {
           select = ("")
      }
      let query = {}
+
+     if (req.query.category) {
+          query.category = req.query.category
+     }
      const phrases = await Phrase.find(query).select(select);
      res.json({ success: true, data: phrases })
 })
