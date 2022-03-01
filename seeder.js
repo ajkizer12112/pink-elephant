@@ -9,6 +9,7 @@ dotenv.config({ path: "./config/config.env" });
 const excel = require("./excel")
 
 const Phrase = require("./models/Phrase")
+const Word = require("./models/Word")
 
 //connect to db
 const conn = mongoose.connect(process.env.MONGO_URI, {
@@ -21,10 +22,11 @@ const conn = mongoose.connect(process.env.MONGO_URI, {
 const importData = async () => {
     try {
         console.log("Importing data")
-        const data = excel.readSingleSheet("BasicPhrases", "Sheet1")
-        console.log(data);
-        await Phrase.create(data);
-        console.log("imported data.  Exiting")
+        const phrases = excel.readSingleSheet("BasicPhrases", "Phrases")
+        await Phrase.create(phrases);
+        console.log("created phrases")
+        console.log("****DONE****")
+        console.log("exiting....")
         setTimeout(() => process.exit(), 1500)
     } catch (error) {
         console.error(error);
@@ -36,7 +38,8 @@ const importData = async () => {
 const deleteData = async () => {
     try {
         console.log("deleting data")
-
+        await Phrase.deleteMany();
+        await Word.deleteMany();
         console.log("deleted data.  Exiting")
         setTimeout(() => process.exit(), 1500)
     } catch (error) {

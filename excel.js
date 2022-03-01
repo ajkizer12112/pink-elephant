@@ -1,8 +1,6 @@
 
 // Requiring the module
 const reader = require('xlsx')
-const Phrase = require("./models/Phrase")
-const mongoose = require("mongoose");
 const { transliterate } = require("transliteration")
 
 const dotenv = require("dotenv");
@@ -10,25 +8,8 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config/config.env" });
 
 
-
-const addToDb = async (data) => {
-
-
-    const conn = mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-    });
-
-
-    await Phrase.create(data)
-
-
-}
-
 const readSingleSheet = (filename, sheetName) => {
-    const toTransliterate = ["Korean", "Hindi", "Danish"]
+    const toTransliterate = ["Korean", "Hindi", "Arabic", "Japanese", "Chinese", "Persian", "Urdu", "Greek", "Thai", "Russian", "Danish"]
 
     const file = reader.readFile(`./data/${filename}.xlsx`)
     const sheets = file.SheetNames
@@ -46,11 +27,11 @@ const readSingleSheet = (filename, sheetName) => {
 }
 
 const writeToSheet = (filename, sheetName, data) => {
-    const file = reader.readFile(`../_data/${filename}.xlsx`)
+    const file = reader.readFile(`../data/${filename}.xlsx`)
     const ws = reader.utils.json_to_sheet(data)
 
     reader.utils.book_append_sheet(file, ws, entity)
-    reader.writeFile(file, `../_data/${filename}.xlsx`)
+    reader.writeFile(file, `../data/${filename}.xlsx`)
 }
 
 const excel = { readSingleSheet, writeToSheet }
