@@ -9,7 +9,7 @@ dotenv.config({ path: "./config/config.env" });
 
 
 const readSingleSheet = (filename, sheetName) => {
-    const toTransliterate = ["Korean", "Hindi", "Arabic", "Japanese", "Chinese", "Persian", "Urdu", "Greek", "Thai", "Russian", "Danish"]
+    const toTransliterate = ["Korean", "Japanese", "Chinese", "Russian",]
 
     const file = reader.readFile(`./data/${filename}.xlsx`)
     const sheets = file.SheetNames
@@ -21,6 +21,8 @@ const readSingleSheet = (filename, sheetName) => {
         toTransliterate.forEach(language => {
             data.forEach(phrase => phrase[`${language}_romanized`] = transliterate(phrase[language]))
         })
+
+        data.forEach(phrase => phrase.category = "starting phrases")
     }
 
     return data
