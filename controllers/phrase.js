@@ -21,7 +21,10 @@ exports.getPhrases = asyncHandler(async (req, res, next) => {
      if (req.query.category) {
           query.category = req.query.category
      }
+
+
      const phrases = await Phrase.find(query).select(select);
+
      res.json({ success: true, data: phrases })
 })
 

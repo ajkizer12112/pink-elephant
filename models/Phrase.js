@@ -38,7 +38,7 @@ const Phrase = mongoose.Schema({
     Russian_romanized: String,
     category: {
         type: String,
-        enum: ["starting phrases", "gym", "nature"],
+        enum: ["starting phrases", "animals and colors", "present", "present and shapes"],
         required: [true, "Category is a required field."]
     },
     owner: mongoose.Schema.ObjectId,

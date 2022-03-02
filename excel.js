@@ -17,12 +17,16 @@ const readSingleSheet = (filename, sheetName) => {
 
     let data = reader.utils.sheet_to_json(file.Sheets[sheetName])
 
-    if (filename === "BasicPhrases") {
+    if (filename === "Phrases1") {
         toTransliterate.forEach(language => {
             data.forEach(phrase => phrase[`${language}_romanized`] = transliterate(phrase[language]))
         })
 
-        data.forEach(phrase => phrase.category = "starting phrases")
+        if (sheetName === "Phrases") data.forEach(phrase => phrase.category = "starting phrases")
+        else if (sheetName === "animalsAndColors") data.forEach(phrase => phrase.category = "animals and colors")
+        else if (sheetName === "present") data.forEach(phrase => phrase.category = "present")
+        else if (sheetName === "presentAndShapes") data.forEach(phrase => phrase.category = "present and shapes")
+
     }
 
     return data
